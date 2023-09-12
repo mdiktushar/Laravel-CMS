@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -37,6 +38,14 @@ class PostController extends Controller
 
 
         auth()->user()->posts()->create($inputs);
+
+        session()->flash('created', 'Post Created...!');
+        return redirect()->route('post.index');
+    }
+
+    public function distroy(Post $post, Request $request) {
+        $post->delete();
+        session()->flash('delete-message', 'Post Deleted...!');
         return back();
     }
 }
