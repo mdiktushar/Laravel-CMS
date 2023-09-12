@@ -12,6 +12,7 @@ class PostController extends Controller
 
     public function index() {
         
+        // $posts = auth()->user()->posts;
         $posts = Post::all();
         return view('admin.post.index', ['posts'=>$posts]);
     }
@@ -44,6 +45,7 @@ class PostController extends Controller
     }
 
     public function edit(Post $post) {
+        $this->authorize('view', $post);
         return view('admin.post.edit', ['post' => $post]);
     }
 
@@ -69,10 +71,16 @@ class PostController extends Controller
         $post->title = $inputs['title'];
         $post->body = $inputs['body'];
 
-        $post->update();
+        // $this->authorize('update', $post);
 
-        session()->flash('updated', 'Post Updated...!');
+        if(auth()->user()->can('update', $post)) {
+            $post->update();
 
-        return redirect()->route('post.index');
+            session()->flash('updated', 'Post Updated...!');
+
+            return redirect()->route('post.index');
+        }
+
+        
     }
 }
