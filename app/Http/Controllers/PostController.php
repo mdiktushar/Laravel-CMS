@@ -43,6 +43,10 @@ class PostController extends Controller
         return redirect()->route('post.index');
     }
 
+    public function edit(Post $post) {
+        return view('admin.post.edit', ['post' => $post]);
+    }
+
     public function distroy(Post $post, Request $request) {
         $post->delete();
         session()->flash('delete-message', 'Post Deleted...!');
