@@ -52,4 +52,27 @@ class PostController extends Controller
         session()->flash('delete-message', 'Post Deleted...!');
         return back();
     }
+
+
+    public function update(Post $post) {
+        $inputs = request()->validate([
+            'title'=>'required| min:8| max:255',
+            'post_image' => 'file:jpeg, jpg, png',
+            'body'=>'required'
+        ]);
+
+        if(request('post_image')) {
+            $inputs['post_image'] = request('post_image')->store('images');
+            $post->post_image = $inputs['post_image'];
+        }
+
+        $post->title = $inputs['title'];
+        $post->body = $inputs['body'];
+
+        $post->update();
+
+        session()->flash('updated', 'Post Updated...!');
+
+        return redirect()->route('post.index');
+    }
 }

@@ -8,6 +8,8 @@
         @elseif (session('created'))
           <div class="alert alert-success">{{ Session::get('created') }}</div>
 
+        @elseif (session('updated'))
+          <div class="alert alert-success">{{ Session::get('updated') }}</div> 
         @endif
 
         <div class="card shadow mb-4">

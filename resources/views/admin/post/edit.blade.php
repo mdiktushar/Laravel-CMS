@@ -2,9 +2,13 @@
     @section('content')
         <h1>Create</h1>
 
-        <form method="post" action='' enctype="multipart/form-data">
+        @if (session('updated'))
+            <div class="alert alert-success">{{ Session::get('updated') }}</div>
+        @endif
+
+        <form method="post" action={{ route('post.update', $post->id) }} enctype="multipart/form-data">
             @csrf
-            @method('PUT')
+            @method('PATCH')
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Title</label>
                 <input type="text" name="title" class="form-control" value={{ $post->title }} id="inputEmail4">
@@ -23,7 +27,7 @@
             </div>
 
             <div class="col-12 mt-2">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </div>
         </form>
     @endsection
