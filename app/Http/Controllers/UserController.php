@@ -13,6 +13,12 @@ class UserController extends Controller
         return view('admin.users.index', ['users'=> $users]);
     }
 
+    public function destroy (User $user) {
+        $user->delete();
+        session()->flash('delete-message', 'User has been deleted');
+        return back();
+    }
+
     public function show (User $user) {
         return view('admin.users.profile', ['user'=>$user]);
     }
