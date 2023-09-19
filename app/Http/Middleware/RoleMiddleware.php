@@ -15,9 +15,9 @@ class RoleMiddleware
      */
     public function handle(Request $request, Closure $next, $role): Response
     {
-        if($request->user()->userHasRole($role)) {
-            abort(403, 'Not Authorized..!');
-        }
+        // if($request->user()->userHasRole($role)) {
+        //     abort(403, 'Not Authorized..!');
+        // }
 
         return $next($request);
     }

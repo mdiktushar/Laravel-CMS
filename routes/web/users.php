@@ -24,6 +24,9 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['role:admin'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::delete('/users/{user}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::put('/user/{user}/role/attach', [UserController::class, 'attach'])->name('user.role.attach');
+    Route::put('/user/{user}/role/detach', [UserController::class, 'detach'])->name('user.role.detach');
+
 });
 
 Route::middleware(['auth', 'can:view,user'])->group(function () {
