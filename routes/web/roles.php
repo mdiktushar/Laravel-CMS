@@ -20,3 +20,4 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
