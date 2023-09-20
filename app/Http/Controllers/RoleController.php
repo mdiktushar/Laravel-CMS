@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -10,12 +11,14 @@ class RoleController extends Controller
 {
     //
 
-    public function index () {
-        return view('admin.roles.index', ['roles'=>Role::all()]);
+    public function index()
+    {
+        return view('admin.roles.index', ['roles' => Role::all()]);
     }
 
-    public function store () {
-        
+    public function store()
+    {
+
         request()->validate([
             'name' => ['required']
         ]);
@@ -29,11 +32,13 @@ class RoleController extends Controller
         return back();
     }
 
-    public function edit (Role $role) {
-        return view('admin.roles.edit', ['role' => $role]);
+    public function edit(Role $role)
+    {
+        return view('admin.roles.edit', ['role' => $role, 'permissions' => Permission::all()]);
     }
 
-    public function update (Role $role) {
+    public function update(Role $role)
+    {
         request()->validate([
             'name' => ['required']
         ]);
@@ -46,7 +51,8 @@ class RoleController extends Controller
         return redirect(route('roles.index'));
     }
 
-    public function destroy (Role $role) {
+    public function destroy(Role $role)
+    {
         $role->delete();
         session()->flash('delete-message', 'Role Deleted');
         return back();
