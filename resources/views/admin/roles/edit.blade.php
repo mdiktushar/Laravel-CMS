@@ -33,22 +33,54 @@
                                         <th scope="col">Id</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Slug</th>
-                                        <th scope="col">Delete</th>
+                                        <th scope="col">Attach</th>
+                                        <th scope="col">Detach</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     
                                     @foreach ($permissions as $permission)
                                         <tr>
-                                            <td><input type="checkbox" name="" id=""></td>
+                                            <td>
+                                                <input type="checkbox" name="" id=""
+                                                    @foreach ($role->permissions as $role_permission)
+                                                        @if ($role_permission->slug == $permission->slug)
+                                                            checked
+                                                        @endif
+                                                    @endforeach
+                                                >
+                                            </td>
                                             <td>{{$permission->id}}</td>
                                             <td>{{$permission->name}}</td>
                                             <td>{{$permission->slug}}</td>
                                             <td>
-                                                <form action='' method="post">
+                                                <form method="POST" action={{route('role.permisssion.attach', $role)}}>
                                                     @csrf
-                                                    @method('DELETE')
-                                                    <Button class="btn btn-danger">Delete</Button>
+                                                    @method('PUT')
+                                                    <input type="hidden" name="permission" value={{$permission->id}}>
+
+                                                    <button 
+                                                        type="submit" 
+                                                        class="btn btn-primary"
+                                                        @if ($role->permissions->contains($permission))
+                                                                disabled
+                                                        @endif
+                                                        >Attach</button>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <form method="POST" action={{route('role.permisssion.detach', $role)}}>
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="permission" value={{$permission->id}}>
+
+                                                    <button 
+                                                        type="submit" 
+                                                        class="btn btn-danger"
+                                                        @if (!$role->permissions->contains($permission))
+                                                                disabled
+                                                        @endif
+                                                        >Detach</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -61,7 +93,8 @@
                                         <th scope="col">Id</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Slug</th>
-                                        <th scope="col">Delete</th>
+                                        <th scope="col">Attach</th>
+                                        <th scope="col">Detach</th>
                                     </tr>
                                 </tfoot>
                             </table>

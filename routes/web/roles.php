@@ -24,3 +24,8 @@ Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
 Route::delete('/roles/{role}/destroy', [RoleController::class, 'destroy'])->name('roles.destroy');
 Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
 Route::PUT('/roles/{role}/update', [RoleController::class, 'update'])->name('roles.update');
+
+
+Route::PUT('/roles/{role}/attach_permission', [RoleController::class, 'attach_permission'])->name('role.permisssion.attach');
+Route::PUT('/roles/{role}/detach_permission', [RoleController::class, 'detach_permission'])->name('role.permisssion.detach');
+
