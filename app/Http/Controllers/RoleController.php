@@ -33,6 +33,15 @@ class RoleController extends Controller
         return view('admin.roles.edit', ['role' => $role]);
     }
 
+    public function update (Role $role) {
+        request()->validate([
+            'name' => ['required']
+        ]);
+        
+        session()->flash('updated', 'Role Updated');
+        return redirect(route('roles.index'));
+    }
+
     public function destroy (Role $role) {
         $role->delete();
         session()->flash('delete-message', 'Role Deleted');
