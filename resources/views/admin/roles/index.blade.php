@@ -1,5 +1,15 @@
 <x-admin-master>
     @section('content')
+        @if (Session::has('delete-message'))
+            <div class="alert alert-danger">{{ Session::get('delete-message') }}</div>
+    
+        @elseif (session('created'))
+            <div class="alert alert-success">{{ Session::get('created') }}</div>
+
+        @elseif (session('updated'))
+            <div class="alert alert-success">{{ Session::get('updated') }}</div> 
+        @endif
+
         <div class="row">
             <div class="col-sm-6">
                 <form method="post" action={{route('roles.store')}}>
@@ -31,6 +41,7 @@
                                         <th scope="col">Id</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Slug</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,8 +49,15 @@
                                     @foreach ($roles as $role)
                                         <tr>
                                             <td>{{$role->id}}</td>
-                                            <td>{{$role->name}}</td>
+                                            <td><a href={{route('roles.edit', $role)}}>{{$role->name}}</a></td>
                                             <td>{{$role->slug}}</td>
+                                            <td>
+                                                <form action={{route('roles.destroy', $role)}} method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <Button class="btn btn-danger">Delete</Button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
 
@@ -49,6 +67,7 @@
                                         <th scope="col">Id</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Slug</th>
+                                        <th scope="col">Delete</th>
                                     </tr>
                                 </tfoot>
                             </table>
