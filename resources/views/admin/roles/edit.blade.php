@@ -6,7 +6,7 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                    <label for="roleInput">Role</label>
+                    <label for="roleInput">Edit Role: {{$role->name}}</label>
                     <input type="text" name="name" value={{$role->name}} class="form-control @error('name') is-invalid @enderror " id="roleInput">
                         <div>
                             @error('name')

@@ -37,7 +37,11 @@ class RoleController extends Controller
         request()->validate([
             'name' => ['required']
         ]);
-        
+
+        $role->name = ucfirst(request('name'));
+        $role->slug = Str::of(strtolower(request('name')))->slug('-');
+        $role->save();
+
         session()->flash('updated', 'Role Updated');
         return redirect(route('roles.index'));
     }
