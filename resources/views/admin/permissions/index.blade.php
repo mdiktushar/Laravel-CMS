@@ -52,7 +52,7 @@
                                         <td><a href={{route('permissions.edit', $permission)}}>{{$permission->name}}</a></td>
                                         <td>{{$permission->slug}}</td>
                                         <td>
-                                            <form action='' method="post">
+                                            <form action={{route('permissions.destroy', $permission)}} method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <Button class="btn btn-danger">Delete</Button>

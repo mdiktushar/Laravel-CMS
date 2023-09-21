@@ -48,4 +48,12 @@ class PermissionController extends Controller
         return redirect(route('permissions.index'));
     }
 
+
+    public function destroy(Permission $Permission)
+    {
+        $Permission->delete();
+        session()->flash('delete-message', 'Role Deleted');
+        return back();
+    }
+
 }
