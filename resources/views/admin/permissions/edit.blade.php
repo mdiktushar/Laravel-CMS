@@ -2,7 +2,7 @@
     @section('content')
     <div class="row">
         <div class="col-sm-6">
-            <form method="post" action=''>
+            <form method="post" action={{route('permissions.update', $permission)}}>
                 @csrf
                 @method('PUT')
                 <div class="form-group">

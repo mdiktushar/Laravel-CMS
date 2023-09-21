@@ -33,4 +33,19 @@ class PermissionController extends Controller
         return view('admin.permissions.edit', ['permission' => $permission]);
     }
 
+
+    public function update(Permission $Permission)
+    {
+        request()->validate([
+            'name' => ['required']
+        ]);
+
+        $Permission->name = ucfirst(request('name'));
+        $Permission->slug = Str::of(strtolower(request('name')))->slug('-');
+        $Permission->save();
+
+        session()->flash('updated', 'Role Updated');
+        return redirect(route('permissions.index'));
+    }
+
 }
