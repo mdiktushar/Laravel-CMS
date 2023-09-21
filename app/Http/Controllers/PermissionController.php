@@ -2,12 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Permission;
+use Illuminate\Support\Str;
 
 class PermissionController extends Controller
 {
     //
     public function index () {
-        return view('admin.permissions.index');
+        return view('admin.permissions.index', ['permissions' => Permission::all()]);
+    }
+
+    public function store()
+    {
+
+        request()->validate([
+            'name' => ['required']
+        ]);
+
+        Permission::create([
+            'name' => ucfirst(request('name')),
+            'slug' => Str::of(strtolower(request('name')))->slug('-'),
+        ]);
+        session()->flash('created', 'Role Created');
+
+        return back();
     }
 }
