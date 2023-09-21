@@ -49,7 +49,7 @@
                                 @foreach ($permissions as $permission)
                                     <tr>
                                         <td>{{$permission->id}}</td>
-                                        <td><a href=''>{{$permission->name}}</a></td>
+                                        <td><a href={{route('permissions.edit', $permission)}}>{{$permission->name}}</a></td>
                                         <td>{{$permission->slug}}</td>
                                         <td>
                                             <form action='' method="post">
