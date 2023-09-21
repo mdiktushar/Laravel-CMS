@@ -23,7 +23,7 @@ class PermissionController extends Controller
             'name' => ucfirst(request('name')),
             'slug' => Str::of(strtolower(request('name')))->slug('-'),
         ]);
-        session()->flash('created', 'Role Created');
+        session()->flash('created', 'Permission Created');
 
         return back();
     }
@@ -44,14 +44,14 @@ class PermissionController extends Controller
         $Permission->slug = Str::of(strtolower(request('name')))->slug('-');
         $Permission->save();
 
-        session()->flash('updated', 'Role Updated');
+        session()->flash('updated', 'Permission Updated');
         return redirect(route('permissions.index'));
     }
 
     public function destroy(Permission $Permission)
     {
         $Permission->delete();
-        session()->flash('delete-message', 'Role Deleted');
+        session()->flash('delete-message', 'Permission Deleted');
         return back();
     }
 
